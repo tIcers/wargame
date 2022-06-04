@@ -1,4 +1,3 @@
-
 import random
 
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
@@ -8,7 +7,7 @@ values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eig
 
 
 class Card:
-    def __init__(self,suits,ranks,values):
+    def __init__(self, suits, ranks):
         self.suits = suits
         self.ranks = ranks
         self.values = values[ranks]
@@ -17,8 +16,42 @@ class Card:
         return self.ranks + ' of ' + self.suits
 
 
-two_hearts = Card("Hearts", "Two")
+class Deck:
+    def __init__(self):
+        self.all_cards = []
 
-print(two_hearts)
+        for suit in suits:
+            for rank in ranks:
+                created_card = Card(suit, rank)
+                self.all_cards.append(created_card)
 
-print(two_hearts.ranks)
+    def shuffle_deck(self):
+        random.shuffle(self.all_cards)
+
+    def deal_one(self):
+        return self.all_cards.pop()
+
+
+class Player:
+
+    def __init__(self,name):
+        self.name = name
+        self.all_cards =[]
+
+    def remove_one(self):
+        return self.all_cards.pop(0) # remove the first/ top card
+
+    def add_cards(self,new_cards):
+        if type(new_cards) == type([]): # list of multiple cards obj
+            self.all_cards.extend(new_cards)
+        else:
+            self.all_cards.append(new_cards) # for single card
+
+    def __str__(self):
+        return f"Player {self.name} has {len(self.all_cards)} cards."
+
+
+new_player = Player("Atsuki")
+print(new_player) # this is the test for player class
+
+
